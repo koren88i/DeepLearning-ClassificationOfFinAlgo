@@ -1,0 +1,5 @@
+*.csv
+*.docx
+.idea/
+.ipynb*
+__pycache_*
