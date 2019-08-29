@@ -8,9 +8,11 @@ def get_sp500():
         pd.read_excel("C:\\Users\\koren\\Documents\\Google Drive Update Folder\\Stocks\\geometric2month\\spy.xls",
                       skiprows=3)["Identifier"].values)
 
+
 def get_russel3000():
     return list(
-        pd.read_csv("C:\\Users\\koren\\Documents\\Google Drive Update Folder\\Stocks\\geometric2month\\russel3000.csv")["Ticker"].values)
+        pd.read_csv("C:\\Users\\koren\\Documents\\Google Drive Update Folder\\Stocks\\geometric2month\\russel3000.csv")[
+            "Ticker"].values)
 
 
 def load_stocks_to_memory(stocks):

@@ -135,12 +135,12 @@ do_signals_flag = 0
 do_features_flag = 1
 do_machine_learning_flag = 0
 
-STOCKS_TO_DO = 50
+STOCKS_TO_DO = 40  # more than that I get memory error
 
 SP500 = get_sp500()
 russel3000 = get_russel3000()
 
-stocks_data_dict = load_stocks_to_memory(russel3000[0:])  # TODO remove limit before prod
+stocks_data_dict = load_stocks_to_memory(russel3000[0:])  # limit this if you want to check something
 keys = list(stocks_data_dict.keys())
 
 if do_signals_flag == 1:
@@ -149,7 +149,7 @@ if do_signals_flag == 1:
     signals_cols = ["symbol", 'type_sign', 'type_str', 'false_positive', 'break_away', 'start_date', 'T_strength']
     dict_to_dataframe(dict_of_stocks_fp, "signals", cols=signals_cols)
 
-for i in range(14, 60):  # TODO needs to be 31
+for i in range(0, 100):  # TODO needs to be 100
     if do_features_flag == 1:
         timestamps_features_month = {}
         timestamps_features_week = {}
