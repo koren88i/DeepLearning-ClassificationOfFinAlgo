@@ -100,22 +100,19 @@ def digest_stocks_signals(stock_lst, start_index, finish_index):
         print("working on {}".format(stock))
         stock_data_df = stocks_data_dict[stock]
 
-        if do_signals_flag == 1:
+        all_signals = find_all_signals(stock_data_df[["adj_close"]], plot_flag=None, start=None, end=None)
+        if len(all_signals) == 0:
+            print("No signals for {}".format(stock))
+            continue
 
-            all_signals = find_all_signals(stock_data_df[["adj_close"]], plot_flag=None, start=None, end=None)
-            if len(all_signals) == 0:
-                print("No signals for {}".format(stock))
-                continue
+        all_signals["symbol"] = stock
+        all_signals['type_str'] = all_signals.type_sign.apply(lambda x: 'Long' if x == 1 else 'Short')
+        if len(all_signals) == 1:
+            all_signals["T_strength"] = 0
+        else:
+            all_signals = return_duration_strength(all_signals)
 
-            all_signals["symbol"] = stock
-            all_signals['type_str'] = all_signals.type_sign.apply(lambda x: 'Long' if x == 1 else 'Short')
-            if len(all_signals) == 1:
-                all_signals["T_strength"] = 0
-            else:
-                all_signals = return_duration_strength(all_signals)
-
-            # with lock:
-            dict_of_stocks_fp[stock] = all_signals
+        dict_of_stocks_fp[stock] = all_signals
 
     print("finished stocks signals")
 
@@ -133,7 +130,6 @@ def dict_to_dataframe(dict, output_name, cols=None):
 
 do_signals_flag = 0
 do_features_flag = 1
-do_machine_learning_flag = 0
 
 STOCKS_TO_DO = 40  # more than that I get memory error
 

@@ -155,16 +155,14 @@ def calc_algo_signal(monthly_adjusted):
 
 
 def find_all_signals(df, plot_flag=None, start=None, end=None):
-    # TODO check only month with real signals +- some window
     start = df.iloc[0].name + relativedelta(months=0)
     end = df.iloc[-1].name
-    # end =start + relativedelta(months= 20)
+    # end = start + relativedelta(months= 20)
 
     start = pd.to_datetime(start)
     end = pd.to_datetime(end)
 
     all_signals = pd.DataFrame(columns=["type_sign", "start_date", "false_positive", "break_away"])
-    # TODO vectorized this
     for month in pd.date_range(start, end, freq="BM"):
         curr_year = month.year
         curr_month = month.month
