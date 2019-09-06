@@ -135,7 +135,8 @@ STOCKS_TO_DO = 40  # more than that I get memory error
 
 SP500 = get_sp500()
 russel3000 = get_russel3000()
-
+# TODO check the data of weekly and daily.. do the signals match?
+# TODO big - make framework for buying and selling based on several consecutive signals and check revenue
 stocks_data_dict = load_stocks_to_memory(russel3000[0:])  # limit this if you want to check something
 keys = list(stocks_data_dict.keys())
 
